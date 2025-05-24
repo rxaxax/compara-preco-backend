@@ -34,7 +34,14 @@ exports.loginUsuario = async (req, res) => {
       return res.status(401).json({ mensagem: 'Credenciais inválidas' });
     }
 
-    res.json({ mensagem: 'Login realizado com sucesso' });
+    res.json({
+      mensagem: 'Login realizado com sucesso',
+      usuario: {
+        id: usuario._id,
+        nome: usuario.nome,
+        email: usuario.email
+    }
+});
   } catch (err) {
     res.status(500).json({ mensagem: 'Erro no servidor' });
   }
