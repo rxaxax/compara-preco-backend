@@ -1,8 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const ProdutoSchema = new mongoose.Schema({
-  nome: { type: String, required: true },
-  preco: { type: Number, required: true }
+const historicoSchema = new mongoose.Schema({
+  preco: { type: Number, required: true },
+  data: { type: Date, default: Date.now },
+  estabelecimento: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Estabelecimento",
+    required: true,
+  },
 });
 
-module.exports = mongoose.model('Produto', ProdutoSchema);
+const produtoSchema = new mongoose.Schema({
+  nome: { type: String, required: true },
+  usuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Usuario",
+    required: true,
+  },
+  historicoPrecos: [historicoSchema],
+});
+
+module.exports = mongoose.model("Produto", produtoSchema);
